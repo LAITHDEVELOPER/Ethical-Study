@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <title>IT Ethics – Study Mode (Ch1-2) - All Types</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background: #eef2f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .study-container {
+      max-width: 1000px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 12px 24px -10px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+    .study-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 18px 20px 12px 20px;
+      border-bottom: 1px solid #e9edf2;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .institution {
+      font-size: 26px;
+      font-weight: 700;
+      background: linear-gradient(135deg,#0b2b4d,#1a4a7a);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .study-badge {
+      background: #e6f7e6;
+      padding: 5px 14px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #1f6e43;
+    }
+    .question-progress {
+      padding: 16px 20px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .question-badge {
+      background: #eef2ff;
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1e4a76;
+    }
+    .question-body {
+      padding: 16px 20px 20px 20px;
+    }
+    .question-text {
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 24px;
+      color: #0b2b3b;
+      white-space: pre-wrap;
+    }
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #fbfdff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 12px 16px;
+    }
+    .option-letter {
+      font-weight: 700;
+      font-size: 1.1rem;
+      min-width: 32px;
+      color: #2c6496;
+    }
+    .option-text {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #1f2e3a;
+      flex: 1;
+      white-space: pre-wrap;
+    }
+    .correct-highlight {
+      background: #e0f5e9;
+      border-left: 4px solid #2b8c4a;
+    }
+    .correct-highlight .option-letter,
+    .correct-highlight .option-text {
+      color: #146b3a;
+      font-weight: 600;
+    }
+    .check-icon {
+      margin-left: 6px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+    .action-buttons {
+      padding: 8px 20px 20px 20px;
+      display: flex;
+      justify-content: flex-end;
+      border-top: 1px solid #edf2f7;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 16px;
+    }
+    .nav-btn {
+      background: #f1f4f9;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #1e4663;
+      cursor: pointer;
+    }
+    .nav-btn-primary {
+      background: #1e6f9f;
+      color: white;
+    }
+    footer {
+      font-size: 11px;
+      text-align: center;
+      padding: 14px;
+      color: #8ba0b0;
+      border-top: 1px solid #ecf3f7;
+    }
+    @media (max-width: 550px) {
+      body { padding: 12px; }
+      .study-header { padding: 14px 16px 10px 16px; }
+      .institution { font-size: 22px; }
+      .question-progress, .question-body, .action-buttons { padding-left: 16px; padding-right: 16px; }
+      .question-text { font-size: 1.25rem; }
+      .option-item { padding: 10px 12px; }
+      .option-letter { font-size: 1rem; min-width: 28px; }
+      .option-text { font-size: 0.9rem; }
+      .nav-btn { padding: 8px 18px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="study-container" id="studyApp">
+  <div class="study-header">
+    <div class="institution">AAU</div>
+    <div class="study-badge">📚 IT Ethics Study Mode • green = correct</div>
+  </div>
+  <div class="question-progress">
+    <div class="question-badge">Question <span id="currentQNumber">1</span> of <span id="totalQCount">72</span></div>
+    <div>✓ Correct answer highlighted</div>
+  </div>
+  <div class="question-body">
+    <div class="question-text" id="questionText">Loading...</div>
+    <div class="options-list" id="optionsContainer"></div>
+  </div>
+  <div class="action-buttons">
+    <div class="nav-buttons">
+      <button class="nav-btn" id="prevBtn">◀ Previous</button>
+      <button class="nav-btn nav-btn-primary" id="nextBtn">Next ▶</button>
+    </div>
+  </div>
+<footer><h3>© Developed By Laith Arabiat</h3></footer>
+</div>
+
+<script>
+// ==================== 72 QUESTIONS – CHAPTERS 1 & 2 (Ethics) ====================
+const RAW_QUESTIONS = [
+  // ----- Chapter 1: Overview of Ethics -----
+  { text: "What is the definition of ethics according to Reynolds?", options: ["Personal principles about right and wrong", "A code of behavior defined by the group to which an individual belongs", "A system of laws", "The study of moral virtue"], correctText: "A code of behavior defined by the group to which an individual belongs" },
+  { text: "Morals are best defined as:", options: ["Group standards of behavior", "Personal principles upon which an individual bases decisions about right and wrong", "Legal requirements", "Corporate policies"], correctText: "Personal principles upon which an individual bases decisions about right and wrong" },
+  { text: "True or False: A person who acts with integrity acts in accordance with a personal code of principles.", options: ["True", "False"], correctText: "True" },
+  { text: "Fill in the blank: A ______ is a habit that inclines people to do what is acceptable.", options: ["Vice", "Virtue", "Law", "Morality"], correctText: "Virtue" },
+  { text: "The Bathsheba Syndrome refers to:", options: ["A type of computer virus", "The moral corruption of those in power", "A hacking technique", "A data privacy law"], correctText: "The moral corruption of those in power" },
+  { text: "Which of the following is NOT a reason to foster corporate social responsibility (CSR)?", options: ["Gain the goodwill of the community", "Protect the organization and its employees from legal action", "Increase short-term profits at any cost", "Avoid unfavorable publicity"], correctText: "Increase short-term profits at any cost" },
+  { text: "True or False: An activity can be legal but still be unethical.", options: ["True", "False"], correctText: "True" },
+  { text: "List the five steps of the ethical decision-making process (in order):", options: ["Define problem, Identify alternatives, Choose alternative, Implement, Evaluate", "Identify problem, Gather data, Analyze, Decide, Report", "Brainstorm, Vote, Execute, Monitor, Adjust", "Complain, Argue, Fight, Lose, Quit"], correctText: "Define problem, Identify alternatives, Choose alternative, Implement, Evaluate" },
+  { text: "A corporate ethics officer is also known as:", options: ["Chief Financial Officer", "Corporate compliance officer", "Human Resources Manager", "IT Director"], correctText: "Corporate compliance officer" },
+  { text: "Fill in the blank: ______ is a component of CSR focused on developing and maintaining a supply chain that meets the needs of the present without compromising future generations.", options: ["Supply chain sustainability", "Green computing", "Data protection", "Risk management"], correctText: "Supply chain sustainability" },
+  { text: "Which of the following is a characteristic of a successful ethics program?", options: ["Employees are rewarded for ethical behavior", "Employees fear reporting misconduct", "Only managers are held accountable", "Ethics is ignored in performance appraisals"], correctText: "Employees are rewarded for ethical behavior" },
+  { text: "True or False: The board of directors has no responsibility for setting ethical standards.", options: ["True", "False"], correctText: "False" },
+  { text: "What is the primary purpose of a code of ethics in an organization?", options: ["To maximize profits", "To highlight key ethical issues and identify core values", "To replace laws", "To avoid any employee communication"], correctText: "To highlight key ethical issues and identify core values" },
+  { text: "Fill in the blank: A ______ is a review of an organization's ethical and social responsibility goals, shared with employees, investors, customers, and the community.", options: ["Financial audit", "Social audit", "Security audit", "Performance review"], correctText: "Social audit" },
+  { text: "Which of the following is a trend that has increased the risk of unethical use of IT?", options: ["Decreased reliance on information systems", "The inability to capture personal data", "Growth of the Internet and social networks", "Less complex work environments"], correctText: "Growth of the Internet and social networks" },
+  { text: "True or False: Ethics training should encourage employees to report misconduct and reassure them that they will not face retaliation.", options: ["True", "False"], correctText: "True" },
+  // ----- Chapter 2: Ethics for IT Workers and IT Users -----
+  { text: "Which of the following is NOT a relationship that an IT worker must manage?", options: ["Employers", "Clients", "Competitors only", "Society at large"], correctText: "Competitors only" },
+  { text: "A trade secret is defined as:", options: ["Any public information", "Information a company has taken strong measures to keep confidential", "A patent", "A copyright"], correctText: "Information a company has taken strong measures to keep confidential" },
+  { text: "Whistle-blowing is:", options: ["Reporting a coworker for minor policy violations", "An effort by an employee to attract attention to an act by a company that threatens the public interest", "Leaking trade secrets for profit", "A type of hacking"], correctText: "An effort by an employee to attract attention to an act by a company that threatens the public interest" },
+  { text: "True or False: The BSA | The Software Alliance is funded through member companies' dues and settlements from companies that commit software piracy.", options: ["True", "False"], correctText: "True" },
+  { text: "Fill in the blank: ______ occurs when one party fails to meet the terms of a contract, impairing the essence of the contract.", options: ["Misrepresentation", "Fraud", "Material breach of contract", "Conflict of interest"], correctText: "Material breach of contract" },
+  { text: "Which of the following is a key issue in the relationship between IT workers and clients?", options: ["Conflict of interest", "Software piracy", "Inappropriate sharing of corporate information", "Resume inflation"], correctText: "Conflict of interest" },
+  { text: "True or False: Bribery is defined as providing money, property, or favors to obtain a business advantage.", options: ["True", "False"], correctText: "True" },
+  { text: "The Foreign Corrupt Practices Act (FCPA) applies to:", options: ["Only US citizens working abroad", "Any U.S. citizen or company, and any company with shares listed on a U.S. stock exchange", "Only multinational corporations", "Only government employees"], correctText: "Any U.S. citizen or company, and any company with shares listed on a U.S. stock exchange" },
+  { text: "Fill in the blank: The maximum fine for an individual under the FCPA is up to $______ and a 5-year prison term.", options: ["$10,000", "$100,000", "$1 million", "$2 million"], correctText: "$100,000" },
+  { text: "Which of the following is a key distinction between a bribe and a gift?", options: ["Bribes are always cash, gifts are tangible", "Bribes are given to influence a business decision; gifts are tokens of appreciation without expectation of return", "There is no distinction", "Gifts are always illegal"], correctText: "Bribes are given to influence a business decision; gifts are tokens of appreciation without expectation of return" },
+  { text: "Resume inflation refers to:", options: ["Adding too many pages to a resume", "Lying on a resume about one's qualifications", "Using colorful paper", "Including personal hobbies"], correctText: "Lying on a resume about one's qualifications" },
+  { text: "True or False: Separation of duties ensures that different aspects of processes involving financial transactions are handled by different people.", options: ["True", "False"], correctText: "True" },
+  { text: "Which of the following is a characteristic of a professional?", options: ["Adheres to high ethical and moral standards", "Produces low-quality results", "Avoids communication", "Resists training others"], correctText: "Adheres to high ethical and moral standards" },
+  { text: "Fill in the blank: A ______ is a statement of the principles and core values essential to the work of a particular occupational group.", options: ["Mission statement", "Professional code of ethics", "Business plan", "Employment contract"], correctText: "Professional code of ethics" },
+  { text: "Which prominent IT-related organization publishes a code of ethics for software engineers?", options: ["BSA", "SIIA", "ACM/IEEE-CS", "FCPA"], correctText: "ACM/IEEE-CS" },
+  { text: "True or False: Certification obliges an individual to have prerequisite education and experience, and to pass an exam.", options: ["True", "False"], correctText: "True" },
+  { text: "What is the primary argument in favor of licensing IT workers?", options: ["To increase government revenue", "To improve information systems reliability and encourage high professional standards", "To limit the number of IT workers", "To reduce salaries"], correctText: "To improve information systems reliability and encourage high professional standards" },
+  { text: "Fill in the blank: ______ is the liability of professionals who breach the duty of care, resulting in negligent care and injuries.", options: ["Criminal negligence", "Professional malpractice", "Breach of contract", "Conflict of interest"], correctText: "Professional malpractice" },
+  { text: "The 'reasonable person standard' is used by courts to:", options: ["Determine if a law is constitutional", "Evaluate how an objective, careful person would have acted in the same circumstances", "Measure software quality", "Assess financial damages"], correctText: "Evaluate how an objective, careful person would have acted in the same circumstances" },
+  { text: "Which of the following is an ethical issue faced by IT users?", options: ["Software piracy", "Inappropriate use of computing resources", "Inappropriate sharing of information", "All of the above"], correctText: "All of the above" },
+  { text: "True or False: An Acceptable Use Policy (AUP) should include purpose, scope, policy, compliance, and sanctions.", options: ["True", "False"], correctText: "True" },
+  { text: "The primary responsibility of an internal audit department includes:", options: ["Maximizing shareholder profits", "Ensuring compliance with organizational policies and verifying existence of assets", "Selling company products", "Hiring new employees"], correctText: "Ensuring compliance with organizational policies and verifying existence of assets" },
+  { text: "Fill in the blank: A ______ is hardware or software that serves as the first line of defense between an organization's network and the Internet.", options: ["Firewall", "Router", "Switch", "Proxy server"], correctText: "Firewall" },
+  { text: "Which of the following is a benefit of a professional code of ethics?", options: ["Ethical decision making", "High standards of practice", "Trust from the public", "All of the above"], correctText: "All of the above" },
+  { text: "True or False: The Software & Information Industry Association (SIIA) promotes the common interests of the software and digital content industries.", options: ["True", "False"], correctText: "True" },
+  { text: "What is the recommended punishment for software piracy according to industry trade groups?", options: ["Warning only", "Settlements and fines", "No action", "Community service"], correctText: "Settlements and fines" },
+  { text: "Fill in the blank: The ______ committee of the board of directors assists with quality of accounting, compliance, and auditor independence.", options: ["Audit", "Compensation", "Nominating", "Ethics"], correctText: "Audit" },
+  { text: "Which of the following is NOT a component of an effective AUP?", options: ["Sanctions", "Compliance", "Marketing strategy", "Purpose"], correctText: "Marketing strategy" },
+  { text: "True or False: Failure to be in compliance with legislation can lead to lawsuits or government fines.", options: ["True", "False"], correctText: "True" },
+  { text: "The term 'duty of care' refers to:", options: ["The obligation to protect people against unreasonable harm or risk", "The legal requirement to report crimes", "A type of insurance", "A software license"], correctText: "The obligation to protect people against unreasonable harm or risk" },
+  { text: "List the five elements of an effective Acceptable Use Policy (AUP) as per the chapter:", options: ["Purpose, Scope, Policy, Compliance, Sanctions", "Introduction, Definitions, Rules, Enforcement, Penalties", "Users, Data, Access, Security, Privacy", "Hardware, Software, Network, Data, People"], correctText: "Purpose, Scope, Policy, Compliance, Sanctions" },
+  { text: "Which organization was formed to promote the common interests of the software and digital content industries?", options: ["BSA", "SIIA", "ACM", "IEEE"], correctText: "SIIA" },
+  { text: "True or False: Confidentiality agreements are never used to protect trade secrets.", options: ["True", "False"], correctText: "False" },
+  { text: "What is the maximum corporate fine per violation under the FCPA?", options: ["$100,000", "$500,000", "$2 million", "$10 million"], correctText: "$2 million" },
+  { text: "Fill in the blank: A ______ is a recognition that a professional possesses a particular set of skills, knowledge, or abilities in the opinion of the certifying organization.", options: ["License", "Certification", "Degree", "Diploma"], correctText: "Certification" },
+  { text: "Which of the following is a reason the Android operating system has contributed to the software piracy problem?", options: ["It has no app store", "It allows side-loading of apps without strict verification", "It is not popular", "It is open source only"], correctText: "It allows side-loading of apps without strict verification" },
+  { text: "True or False: The Joint Steering Committee for the Establishment of Software Engineering as a Profession was formed by ACM and IEEE-CS.", options: ["True", "False"], correctText: "True" },
+  { text: "Which of the following best describes 'internal control'?", options: ["A type of firewall", "The process to provide reasonable assurance for effectiveness of operations and reliability of financial reporting", "A software development methodology", "A type of encryption"], correctText: "The process to provide reasonable assurance for effectiveness of operations and reliability of financial reporting" },
+  { text: "Fill in the blank: The ______ standard is used to measure the actions of professionals who have particular expertise or competence.", options: ["Reasonable person", "Reasonable professional", "Strict liability", "Good Samaritan"], correctText: "Reasonable professional" }
+];
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+let shuffledQuestions = RAW_QUESTIONS.map(q => {
+  const shuffledOpts = shuffleArray([...q.options]);
+  return { text: q.text, optionsShuffled: shuffledOpts, correctAnswerText: q.correctText };
+});
+
+const total = shuffledQuestions.length;
+let currentIdx = 0;
+const questionTextEl = document.getElementById("questionText");
+const optionsContainer = document.getElementById("optionsContainer");
+const currentQSpan = document.getElementById("currentQNumber");
+const totalQSpan = document.getElementById("totalQCount");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+totalQSpan.textContent = total;
+
+function escapeHtml(str) {
+  return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+}
+
+function renderCurrentQuestion() {
+  const q = shuffledQuestions[currentIdx];
+  questionTextEl.textContent = q.text;
+  const letters = ['A', 'B', 'C', 'D'];
+  let html = '';
+  q.optionsShuffled.forEach((opt, idx) => {
+    const letter = letters[idx];
+    const isCorrect = (opt === q.correctAnswerText);
+    const checkMark = isCorrect ? ' <span class="check-icon">✓</span>' : '';
+    const extraClass = isCorrect ? 'correct-highlight' : '';
+    html += `<div class="option-item ${extraClass}"><div class="option-letter">${letter}.</div><div class="option-text">${escapeHtml(opt)}${checkMark}</div></div>`;
+  });
+  optionsContainer.innerHTML = html;
+  currentQSpan.textContent = currentIdx + 1;
+  nextBtn.textContent = (currentIdx === total - 1) ? "🏁 Last" : "Next ▶";
+}
+
+function navigate(delta) {
+  const newIdx = currentIdx + delta;
+  if (newIdx >= 0 && newIdx < total) { currentIdx = newIdx; renderCurrentQuestion(); }
+}
+prevBtn.onclick = () => navigate(-1);
+nextBtn.onclick = () => { if (currentIdx < total - 1) navigate(1); };
+renderCurrentQuestion();
+</script>
+</body>
+</html>
